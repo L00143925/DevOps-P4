@@ -3,16 +3,11 @@
 
 name: Node.js artifact
 
-on:
- push:
-    branches:
-    - main
-    - develop
+on: [push]
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    
     steps:
      - uses: actions/checkout@v2
      - name: npm install and bulid webpack
@@ -23,17 +18,13 @@ jobs:
        with:
         name: webpack artifacts
         path: public/
-     
   test:
     needs: build
-    runs-on: ubuntu-latest 
-       
-
+    runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [12.x, 14.x]
         os: [ubuntu-latest, window-latest]
-
     steps:
      - uses: actions/checkout@v2
      - uses: actions/download-artifact@main
